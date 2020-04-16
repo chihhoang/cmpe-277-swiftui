@@ -197,11 +197,13 @@ struct WeeklyForecastResponse: Codable {
         let date: Date
         let main: MainClass
         let weather: [Weather]
+        let wind: Wind
         
         enum CodingKeys: String, CodingKey {
             case date = "dt"
             case main
             case weather
+            case wind
         }
     }
     
@@ -220,6 +222,10 @@ struct WeeklyForecastResponse: Codable {
             case weatherDescription = "description"
         }
     }
+  
+    struct Wind: Codable {
+        let speed: Double
+    }
     
     enum MainEnum: String, Codable {
         case clear = "Clear"
@@ -234,6 +240,7 @@ struct CurrentWeatherForecastResponse: Decodable {
     let coord: Coord
     let main: Main
     let weather: [Weather]
+    let wind: Wind
     
     struct Weather: Codable {
         let id: Int
@@ -261,6 +268,10 @@ struct CurrentWeatherForecastResponse: Decodable {
     struct Coord: Codable {
         let lon: Double
         let lat: Double
+    }
+  
+    struct Wind: Codable {
+        let speed: Double
     }
 }
 

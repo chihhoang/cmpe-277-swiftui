@@ -102,6 +102,10 @@ struct CurrentWeatherRowViewModel {
       }
   }
   
+  var windSpeed: String {
+      return String(format: "%.2f", item.wind.speed)
+  }
+  
   var coordinate: CLLocationCoordinate2D {
     return CLLocationCoordinate2D.init(latitude: item.coord.lat, longitude: item.coord.lon)
   }

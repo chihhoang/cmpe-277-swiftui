@@ -17,14 +17,6 @@ struct CurrentWeatherView: View {
     
     var body: some View {
         VStack{
-//            HStack {
-//                Image(systemName: "cloud.sun.rain")
-//                    .resizable()
-//                    .frame(width: CGFloat(40), height: CGFloat(40))
-//                Text(viewModel.city.capitalized)
-//                    .font(.title)
-//                    .fontWeight(.light)
-//            }
             List(content: content)
                 .onAppear(perform: viewModel.refresh)
                 .navigationBarTitle(viewModel.city)
@@ -63,7 +55,6 @@ struct CurrentWeatherRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-//            Image(systemName: "cloud.sun.rain")
             HStack {
               Image(systemName: viewModel.conditionName)
                   .resizable()
@@ -97,7 +88,11 @@ struct CurrentWeatherRow: View {
                     Spacer()
                     Text("\(viewModel.minTemperature)°")
                     }.padding(.bottom, 1)
-                
+                HStack {
+                    Text("🌬 Wind speed:")
+                    Spacer()
+                    Text("\(viewModel.windSpeed) mph")
+                }.padding(.bottom, 1)
                 HStack {
                     Text("💧 Humidity:")
                     Spacer()

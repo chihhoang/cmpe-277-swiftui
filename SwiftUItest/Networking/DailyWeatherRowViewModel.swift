@@ -52,6 +52,10 @@ struct DailyWeatherRowViewModel: Identifiable {
         return description
     }
   
+    var windSpeed: String {
+        return String(format: "%.2f", item.wind.speed)
+    }
+  
     var conditionName: String {
       guard let weatherId = item.weather.first?.id else { return "questionmark" }
       
