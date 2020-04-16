@@ -164,7 +164,7 @@ private extension DataFetcher {
         components.queryItems = [
             URLQueryItem(name: "q", value: city),
             URLQueryItem(name: "mode", value: "json"),
-            URLQueryItem(name: "units", value: "metric"),
+            URLQueryItem(name: "units", value: "imperial"),
             URLQueryItem(name: "APPID", value: OpenWeatherAPI.key)
         ]
         
@@ -182,7 +182,7 @@ private extension DataFetcher {
         components.queryItems = [
             URLQueryItem(name: "q", value: city),
             URLQueryItem(name: "mode", value: "json"),
-            URLQueryItem(name: "units", value: "metric"),
+            URLQueryItem(name: "units", value: "imperial"),
             URLQueryItem(name: "APPID", value: OpenWeatherAPI.key)
         ]
         
@@ -210,10 +210,12 @@ struct WeeklyForecastResponse: Codable {
     }
     
     struct Weather: Codable {
+        let id: Int
         let main: MainEnum
         let weatherDescription: String
         
         enum CodingKeys: String, CodingKey {
+            case id
             case main
             case weatherDescription = "description"
         }
@@ -228,17 +230,28 @@ struct WeeklyForecastResponse: Codable {
 }
 
 struct CurrentWeatherForecastResponse: Decodable {
+    let name: String
     let coord: Coord
     let main: Main
+    let weather: [Weather]
+    
+    struct Weather: Codable {
+        let id: Int
+        let main: String
+        let description: String
+        let icon: String
+    }
     
     struct Main: Codable {
         let temperature: Double
+        let feelsLike: Double
         let humidity: Int
         let maxTemperature: Double
         let minTemperature: Double
         
         enum CodingKeys: String, CodingKey {
             case temperature = "temp"
+            case feelsLike = "feels_like"
             case humidity
             case maxTemperature = "temp_max"
             case minTemperature = "temp_min"

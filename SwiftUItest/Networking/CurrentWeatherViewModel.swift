@@ -49,6 +49,14 @@ class CurrentWeatherViewModel: ObservableObject, Identifiable {
 
 struct CurrentWeatherRowViewModel {
   private let item: CurrentWeatherForecastResponse
+    
+  var name: String {
+    return item.name
+  }
+
+  var feelsLike: String {
+    return String(format: "%.1f", item.main.feelsLike)
+  }
   
   var temperature: String {
     return String(format: "%.1f", item.main.temperature)
@@ -63,7 +71,35 @@ struct CurrentWeatherRowViewModel {
   }
   
   var humidity: String {
-    return String(format: "%.1f", item.main.humidity)
+    return String(item.main.humidity)
+  }
+  
+  var weatherDescription: String {
+    guard let description = item.weather.first?.description else { return "" }
+    return description
+  }
+  
+  var conditionName: String {
+    guard let weatherId = item.weather.first?.id else { return "questionmark" }
+    
+    switch weatherId {
+      case 200...232:
+          return "cloud.bolt"
+      case 300...321:
+          return "cloud.drizzle"
+      case 500...531:
+          return "cloud.rain"
+      case 600...622:
+          return "cloud.snow"
+      case 701...781:
+          return "cloud.fog"
+      case 800:
+          return "sun.max"
+      case 801...804:
+          return "cloud.bolt"
+      default:
+          return "cloud"
+      }
   }
   
   var coordinate: CLLocationCoordinate2D {

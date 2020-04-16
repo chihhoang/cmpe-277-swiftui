@@ -35,10 +35,12 @@ struct WeeklyWeatherView: View {
                     Text("\(locationViewModel.placemark?.locality ?? "No city location")")
                         .font(.title).fontWeight(.light)
                     
-                    Text("Location Latitude: \(locationViewModel.userLatitude), Longitude: \(locationViewModel.userLongitude)")
+                    Text("Latitude: \(locationViewModel.userLatitude)")
                         .padding([.leading, .trailing])
                         .font(.subheadline)
-                    
+                    Text("Longitude: \(locationViewModel.userLongitude)")
+                      .padding([.leading, .trailing])
+                      .font(.subheadline)
                     
                     currentLocationWeatherViewSection
                 }
@@ -102,9 +104,14 @@ struct DailyWeatherRow: View {
             }
             
             VStack(alignment: .leading) {
+              HStack {
+                Image(systemName: viewModel.conditionName)
+                  .resizable()
+                  .frame(width: CGFloat(20), height: CGFloat(20))
                 Text("\(viewModel.title)")
-                    .font(.body)
-                Text("\(viewModel.fullDescription)")
+                  .font(.body)
+              }
+              Text("\(viewModel.fullDescription.capitalized)")
                     .font(.footnote)
             }
             .padding(.leading, 8)
@@ -125,7 +132,7 @@ private extension WeeklyWeatherView {
             NavigationLink(destination: viewModel.currentWeatherView) //Using WeeklyWeatherBuilder.makeCurrentWeatherView
             {
                 VStack(alignment: .leading) {
-                    Text(viewModel.city)
+                    Text(viewModel.city.capitalized)
                     Text("Weather today")
                         .font(.caption)
                         .foregroundColor(.gray)

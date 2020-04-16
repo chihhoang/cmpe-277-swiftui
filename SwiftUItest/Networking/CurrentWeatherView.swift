@@ -17,15 +17,14 @@ struct CurrentWeatherView: View {
     
     var body: some View {
         VStack{
-            HStack {
-                Image(systemName: "cloud.sun.rain")
-                    .resizable()
-                    .frame(width: CGFloat(40), height: CGFloat(40))
-                
-                Text(viewModel.city)
-                    .font(.title)
-                    .fontWeight(.light)
-            }
+//            HStack {
+//                Image(systemName: "cloud.sun.rain")
+//                    .resizable()
+//                    .frame(width: CGFloat(40), height: CGFloat(40))
+//                Text(viewModel.city.capitalized)
+//                    .font(.title)
+//                    .fontWeight(.light)
+//            }
             List(content: content)
                 .onAppear(perform: viewModel.refresh)
                 .navigationBarTitle(viewModel.city)
@@ -64,13 +63,29 @@ struct CurrentWeatherRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            
+//            Image(systemName: "cloud.sun.rain")
+            HStack {
+              Image(systemName: viewModel.conditionName)
+                  .resizable()
+                .frame(width: CGFloat(40), height: CGFloat(40))
+              Text(viewModel.name)
+              .font(.title)
+              .fontWeight(.light)
+            }
+            Text(viewModel.weatherDescription.capitalized)
+              .font(.caption)
+              .fontWeight(.light)
             HStack {
                 Text("\(viewModel.temperature)°")
                 .font(.system(size: 50))
                 .fontWeight(.ultraLight)
                 
                 VStack(alignment: .leading) {
+                HStack {
+                  Text("🌎 Feels like:")
+                  Spacer()
+                  Text("\(viewModel.feelsLike)°")
+                }.padding(.bottom, 1)
                 HStack {
                     Text("📈 Max temperature:")
                     Spacer()

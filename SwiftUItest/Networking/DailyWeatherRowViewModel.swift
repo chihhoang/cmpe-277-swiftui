@@ -51,6 +51,29 @@ struct DailyWeatherRowViewModel: Identifiable {
         guard let description = item.weather.first?.weatherDescription else { return "" }
         return description
     }
+  
+    var conditionName: String {
+      guard let weatherId = item.weather.first?.id else { return "questionmark" }
+      
+      switch weatherId {
+        case 200...232:
+            return "cloud.bolt"
+        case 300...321:
+            return "cloud.drizzle"
+        case 500...531:
+            return "cloud.rain"
+        case 600...622:
+            return "cloud.snow"
+        case 701...781:
+            return "cloud.fog"
+        case 800:
+            return "sun.max"
+        case 801...804:
+            return "cloud.bolt"
+        default:
+            return "cloud"
+        }
+    }
     
     init(item: WeeklyForecastResponse.Item) {
         self.item = item
